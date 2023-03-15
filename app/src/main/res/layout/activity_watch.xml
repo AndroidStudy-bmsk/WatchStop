@@ -32,7 +32,7 @@
         android:layout_marginStart="8dp"
         android:text="초"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_countdown"
-        app:layout_constraintStart_toEndOf="@id/tv_countdown"
+        app:layout_constraintStart_toEndOf="@id/tv_countdown" />
 
     <TextView
         android:id="@+id/tv_countdown"
@@ -81,6 +81,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
         android:clickable="true"
+        android:contentDescription="@null"
         android:src="@drawable/ic_baseline_play_arrow_24"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +95,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/yellow"
         android:clickable="true"
+        android:contentDescription="@null"
         android:src="@drawable/ic_baseline_play_arrow_24"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -108,6 +110,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
         android:clickable="true"
+        android:contentDescription="@null"
         android:src="@drawable/ic_baseline_stop_24"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,6 +124,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
         android:clickable="true"
+        android:contentDescription="@null"
         android:src="@drawable/ic_baseline_check_24"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -142,12 +146,10 @@
 
         <LinearLayout
             android:id="@+id/linear_layout_lap_container"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:orientation="vertical" />
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
