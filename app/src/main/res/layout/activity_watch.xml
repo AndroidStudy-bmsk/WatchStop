@@ -125,8 +125,8 @@
         android:backgroundTint="@color/blue"
         android:clickable="true"
         android:contentDescription="@null"
-        android:visibility="gone"
         android:src="@drawable/ic_baseline_check_24"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.3"
@@ -151,5 +151,10 @@
             android:orientation="vertical" />
     </ScrollView>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="pb_countdown,tv_countdown_title,tv_countdown_unit,tv_countdown" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
