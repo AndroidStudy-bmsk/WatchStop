@@ -3,3 +3,4 @@
 
 ### 🔧 Used Technologies
 - AlertDialog
+- timer

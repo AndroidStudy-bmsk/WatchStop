@@ -6,10 +6,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import org.bmsk.watchstop.databinding.ActivityWatchBinding
 import org.bmsk.watchstop.databinding.DialogCountdownSettingBinding
+import kotlin.concurrent.timer
 
 class WatchActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWatchBinding
     private var countDownSecond = 10
+    private var currentDeciSecond = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWatchBinding.inflate(layoutInflater)
@@ -68,7 +71,19 @@ class WatchActivity : AppCompatActivity() {
     }
 
     private fun start() {
+        timer(initialDelay = 0, period = 100) {
+            currentDeciSecond += 1
 
+            val minutes = currentDeciSecond.div(10) / 60
+            val second = currentDeciSecond.div(10) % 60
+            val deciSeconds = currentDeciSecond % 10
+
+            runOnUiThread {
+                binding.tvTime.text =
+                    String.format("%02d:%02d", minutes, second)
+                binding.tvTick.text = deciSeconds.toString()
+            }
+        }
     }
 
     private fun stop() {
