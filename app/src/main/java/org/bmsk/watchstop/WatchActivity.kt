@@ -1,7 +1,10 @@
 package org.bmsk.watchstop
 
+import android.media.AudioManager
+import android.media.ToneGenerator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -109,6 +112,12 @@ class WatchActivity : AppCompatActivity() {
                     binding.pbCountdown.progress = progress.toInt()
                 }
             }
+            // 3초 전에 비프음을 시작합니다.
+            if (currentDeciSecond == 0 && currentCountdownDeciSecond < 41 && currentCountdownDeciSecond % 10 == 0) {
+                // MAX_VOLUME -> System Volume 과 동일합니다.
+                ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME)
+                    .startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, 100)
+            }
         }
     }
 
@@ -124,6 +133,9 @@ class WatchActivity : AppCompatActivity() {
 
         binding.groupCountdown.isVisible = true
         initCountdown()
+
+        // Stop: Remove All Laps
+        binding.linearLayoutLapContainer.removeAllViews()
     }
 
     private fun pause() {
@@ -132,6 +144,8 @@ class WatchActivity : AppCompatActivity() {
     }
 
     private fun lap() {
+        if (currentDeciSecond == 0) return
+
         val container = binding.linearLayoutLapContainer
         TextView(this).apply {
             textSize = 20f
@@ -139,7 +153,7 @@ class WatchActivity : AppCompatActivity() {
             val minutes = currentDeciSecond.div(10) / 60
             val seconds = currentDeciSecond.div(10) % 60
             val deciSeconds = currentDeciSecond % 10
-            text = "${container.childCount.inc()} ${
+            text = "${container.childCount.inc()}. ${
                 String.format(
                     "%02d:%02d %01d",
                     minutes,
@@ -168,7 +182,7 @@ class WatchActivity : AppCompatActivity() {
             setView(dialogBinding.root)
             setPositiveButton("확인") { _, _ ->
                 countdownSecond = dialogBinding.npCountdownSecond.value
-                currentDeciSecond = countdownSecond * 10
+                currentCountdownDeciSecond = countdownSecond * 10
                 binding.tvCountdown.text = String.format("%02d", countdownSecond)
             }
             setNegativeButton("취소", null)
