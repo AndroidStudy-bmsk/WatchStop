@@ -17,7 +17,7 @@ import kotlin.concurrent.timer
 
 class WatchActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWatchBinding
-    private var countdownSecond = 10
+    private var countdownSecond = 5
     private var currentDeciSecond = 0
     private var currentCountdownDeciSecond = countdownSecond * 10
     private var timer: Timer? = null
@@ -112,11 +112,12 @@ class WatchActivity : AppCompatActivity() {
                     binding.pbCountdown.progress = progress.toInt()
                 }
             }
-            // 3초 전에 비프음을 시작합니다.
+            // 3초부터 비프음을 시작합니다.
             if (currentDeciSecond == 0 && currentCountdownDeciSecond < 41 && currentCountdownDeciSecond % 10 == 0) {
                 // MAX_VOLUME -> System Volume 과 동일합니다.
+                val toneType = if(currentCountdownDeciSecond == 0) ToneGenerator.TONE_CDMA_HIGH_L else ToneGenerator.TONE_CDMA_ABBR_ALERT
                 ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME)
-                    .startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, 100)
+                    .startTone(toneType, 100)
             }
         }
     }
